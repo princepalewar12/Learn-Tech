@@ -1,0 +1,1 @@
+export const LOGO_URL = "https://www.codemindtechnology.com/assets/img/logo-shape.png"
