@@ -1,6 +1,6 @@
+import Body from "./components/Body";
 import NavContents from "./components/NavContents";
 import Navbar from "./components/Navbar";
-// import SideNav from "./components/SideNav";
 
 function App() {
   return (
@@ -8,6 +8,7 @@ function App() {
       <div className="Header">
         <Navbar />
         <NavContents />
+        <Body/>
       </div>
     </div>
   );
