@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { nanoid } from "@reduxjs/toolkit";
+import UserDetails from "./UserDetails";
+import { Link } from "react-router-dom";
 
 const UserForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -9,10 +10,11 @@ const UserForm = () => {
   const [city, setCity] = useState("");
 
 
+
   const dispatch = useDispatch()
   
   const handleFormData = () => {
-    const userInfo = {id:Date.now(),firstName, lastName, city}
+  const userInfo = {id:Date.now(),firstName, lastName, city}
     dispatch(addUser(userInfo))
   };
 
@@ -42,14 +44,16 @@ const UserForm = () => {
             placeholder="Enter your city name"
             onChange={(e) => setCity(e.target.value)}
           />
-          <button
-            className="w-60 m-3 p-2 border-2 border-black bg-white"
+          <Link to="/userdetail"
+            className="w-60 m-3 p-2 border-2 border-black bg-blue-500 text-white"
             onClick={handleFormData}
           >
-            Add User
-          </button>
+           Add User
+          </Link>
         </form>
       </div>
+      {/* <UserDetails  setFname={setFirstName} setLname={setLastName} setCityName={setCity}/> */}
+
     </div>
   );
 };

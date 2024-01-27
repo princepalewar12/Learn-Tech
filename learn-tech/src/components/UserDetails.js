@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../utils/userSlice";
+import { useParams } from "react-router-dom";
 
-const UserDetails = () => {
+const UserDetails = (props) => {
+  const { setBtn, setFname, setLname, setCityName } = props;
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const users = useSelector((state) => state.user.users);
   console.log(users);
 
-const handleRemoveUser=(id)=>{
-dispatch(removeUser(id))
-}
+  const { id } = useParams();
+  console.log(id);
+
+  useEffect(() => {
+    // setFname(users.firstName);
+  }, []);
+
+  const handleUpdateInfo = () => {
+  };
+
+  const handleRemoveUser = (id) => {
+    dispatch(removeUser(id));
+  };
 
   return (
     <div className=" h-auto w-80 m-5">
@@ -33,10 +45,10 @@ dispatch(removeUser(id))
 
         <>
           <tbody>
-            {users.map((user) => (
+            {users.map((user, index) => (
               <tr key={user.id}>
                 <td className="border-2 border-black pe-4 ps-4 text-xl">
-                  {user.id}
+                  {index + 1}
                 </td>
                 <td className="border-2 border-black pe-4 ps-4 text-xl">
                   {user.firstName}
@@ -48,12 +60,18 @@ dispatch(removeUser(id))
                   {user.city}
                 </td>
                 <td className="border-2 border-black pe-4 ps-4 text-xl">
-                  <button className="bg-gray-500 p-2 rounded text-white cursor-pointer">
+                  <button
+                    className="bg-gray-500 p-2 rounded text-white cursor-pointer"
+                    onClick={() => handleUpdateInfo(user.id)}
+                  >
                     Update
                   </button>
                 </td>
                 <td className="border-2 border-black pe-4 ps-4 text-xl">
-                  <button className="bg-gray-500 p-2 rounded text-white cursor-pointer" onClick={()=>handleRemoveUser(user.id)}>
+                  <button
+                    className="bg-gray-500 p-2 rounded text-white cursor-pointer"
+                    onClick={() => handleRemoveUser(user.id)}
+                  >
                     Delete
                   </button>
                 </td>
