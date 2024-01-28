@@ -8,19 +8,12 @@ import { Provider } from "react-redux";
 import App from "../App";
 
 const Body = () => {
-  const appRouter = createBrowserRouter([
-   
-    {
-      path: "/userform",
-      element: <UserForm />,
-    },
-  ]);
-
-  return (
-    <div>
-      <RouterProvider router={appRouter} />
-    </div>
-  );
-};
-
+  const [button, setButton] = useState('Add User')
+  return(
+    <>
+    <UserForm btn={button}/>
+    <UserDetails setBtn= {setButton}/>
+    </>
+  )
+}
 export default Body;

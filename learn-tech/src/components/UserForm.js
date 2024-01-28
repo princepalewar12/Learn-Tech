@@ -1,21 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import UserDetails from "./UserDetails";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { myContext } from "../App";
 
 const UserForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [city, setCity] = useState("");
 
+  const nameField = useRef();
 
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-  
+  useEffect(() => {
+    nameField.current.focus();
+  }, []);
+
   const handleFormData = () => {
-  const userInfo = {id:Date.now(),firstName, lastName, city}
-    dispatch(addUser(userInfo))
+    const userInfo = { id: Date.now(), firstName, lastName, city };
+    dispatch(addUser(userInfo));
+    setFirstName("");
+    setLastName("");
+    setCity("");
+    nameField.current.focus();
   };
 
   return (
@@ -29,6 +38,7 @@ const UserForm = () => {
             type="text"
             placeholder="Enter your first name"
             onChange={(e) => setFirstName(e.target.value)}
+            ref={nameField}
           />
           <input
             className="w-60 m-3 p-3 border-2 border-black"
@@ -44,16 +54,20 @@ const UserForm = () => {
             placeholder="Enter your city name"
             onChange={(e) => setCity(e.target.value)}
           />
-          <Link to="/userdetail"
-            className="w-60 m-3 p-2 border-2 border-black bg-blue-500 text-white"
+          <button
+            className=" m-3 p-2 border-2 font-bold border-black bg-blue-500 text-white"
             onClick={handleFormData}
           >
-           Add User
+            SUBMIT
+          </button>
+          <Link
+            to="/userdetails"
+            className=" m-3 p-2 border-2 font-bold border-black bg-blue-500 text-white"
+          >
+            User Detail
           </Link>
         </form>
       </div>
-      {/* <UserDetails  setFname={setFirstName} setLname={setLastName} setCityName={setCity}/> */}
-
     </div>
   );
 };

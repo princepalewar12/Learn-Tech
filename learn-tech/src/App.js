@@ -5,33 +5,11 @@ import Navbar from "./components/Navbar";
 import UserForm from "./components/UserForm";
 import UserDetails from "./components/UserDetails";
 import Error from "./components/Error";
+import { createContext, useState } from "react";
+import UpdateUser from "./components/UpdateUser";
 
 // Move router configuration outside the App component
-
-
-const appRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children:[
-      {
-        path:"/userform",
-        element:<>
-        <UserForm/>
-        
-        </>
-      },
-      {
-        path:'/userdetail',
-        element:<UserDetails/>,
-      }
-    ],
-    errorElement:<Error/>
-  },
-  
-]);
-
-function App() {
+const App = () => {
   return (
     <div className="App">
       <div className="Header">
@@ -41,12 +19,36 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
-const AppWithRouter = () => (
-  <RouterProvider router={appRouter}>
-    <App />
-  </RouterProvider>
-);
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/userform/",
+        element: <UserForm />,
+      },
+      {
+        path: "/updateuser/:id",
+        element: <UpdateUser />,
+      },
+      {
+        path: "/userdetails",
+        element: <UserDetails />,
+      },
+    ],
+    errorElement: <Error />,
+  },
+]);
+
+const AppWithRouter = () => {
+  return (
+    <RouterProvider router={appRouter}>
+      <App />
+    </RouterProvider>
+  );
+};
 
 export default AppWithRouter;
